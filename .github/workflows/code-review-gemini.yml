@@ -22,8 +22,16 @@ jobs:
   llm-review:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      # 1. Descarga el código del repositorio actual (ej. Text-to-youtube)
+      - name: Checkout app code
         uses: actions/checkout@v4
+
+      # 2. Descarga el repositorio centralizado donde está el script .py
+      - name: Checkout centralizado repo
+        uses: actions/checkout@v4
+        with:
+          repository: kuroroluzbell/centralizado
+          path: repo-centralizado  # Se descarga en esta carpeta específica
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -40,8 +48,9 @@ jobs:
           LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: |
-          python centralizado/.github/scripts/llm_review.py \
+          # Apuntamos a la carpeta 'repo-centralizado' que definimos en el step anterior
+          python repo-centralizado/.github/scripts/llm_review.py \
             --provider "$LLM_PROVIDER" \
             --api-key "$LLM_API_KEY" \
-            --files ${{ inputs.files_to_analyze }} \
+            --files "${{ inputs.files_to_analyze }}" \
             --fail-on-severity ${{ inputs.fail_level }}
