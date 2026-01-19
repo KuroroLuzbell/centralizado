@@ -52,5 +52,5 @@ jobs:
           python centralizado-tools/.github/scripts/llm_review.py \
             --provider "$LLM_PROVIDER" \
             --api-key "$LLM_API_KEY" \
-            --files "${{ inputs.files_to_analyze }}" \
+            --files ${{ inputs.files_to_analyze }} \
             --fail-on-severity ${{ inputs.fail_level }}
