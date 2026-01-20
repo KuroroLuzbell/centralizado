@@ -30,7 +30,8 @@ jobs:
     permissions:
       contents: "read"
       id-token: "write"
-
+      outputs:
+        image_to_deploy: ${{ inputs.artifact_registry_region }}-docker.pkg.dev/${{ secrets.gcp_project_id }}/${{ inputs.artifact_registry_repository }}/${{ inputs.image_name }}:latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -77,6 +78,6 @@ jobs:
           # Ruta completa a la imagen que acabas de subir a Artifact Registry
           image: "${{ steps.meta.outputs.tags }}"
           flags: |
-            --allow-unauthenticated
+            '--allow-unauthenticated
             --port=8080
             --memory=512Mi
