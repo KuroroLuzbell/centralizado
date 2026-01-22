@@ -26,8 +26,6 @@ jobs:
           # Esto genera un reporte que GitHub puede leer nativamente
           output: results.sarif
           format: sarif
-          # Continue so we can get the artifact even if Codacy finds issues
-          continue-on-error: true
 
       - name: Check for analysis results
         id: check_files
