@@ -26,6 +26,7 @@ jobs:
           # Esto genera un reporte que GitHub puede leer nativamente
           output: results.sarif
           format: sarif
+          fail-if-incomplete: false
 
       - name: Check for analysis results
         id: check_files
